@@ -1,289 +1,703 @@
-.icon {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-    margin-bottom: 3px;
-    vertical-align: middle;
+.site-header {
+  padding: var(--space-12) 0 var(--space-8);
 }
 
-#recent-confessions {
-    display: flex;
-    flex-direction: column;
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-8);
 }
 
-:root {
-    --confession-bg: rgba(255, 255, 255, 0.603);
+.site-title {
+  text-align: left;
+
+  h1 {
+    color: var(--primary);
+    margin-bottom: var(--space-2);
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --confession-bg: rgba(0, 0, 0, 0.815);
-    }
+.site-subtitle {
+  color: var(--muted);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  position: relative;
+  margin-bottom: var(--space-3);
+
+  &:hover {
+    color: var(--primary);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background-image: url('/static/images/cat.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+    border-radius: var(--radius);
+    margin-top: var(--space-2);
+  }
+
+  &:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
-confession {
-    margin: 10px;
-    background-color: var(--interactive-background-color);
+.github-link {
+  color: var(--muted);
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+  border-radius: var(--radius);
 
-    border-radius: 10px;
-    background-image: url("/static/images/heartsmall.png");
-    background-repeat: repeat;
-    animation: scroll 60s linear infinite;
-
-    .content {
-        border-radius: 10px;
-        padding: 10px;
-        background-color: var(--confession-bg);
-    }
-
-    .date {
-        text-decoration: underline;
-    }
-
-    .text {
-        margin-top: 5px;
-        font-size: 20px;
-        text-wrap: wrap;
-        word-wrap: break-word;
-    }
+  &:hover {
+    color: var(--primary);
+    text-decoration: none;
+  }
 }
 
-@keyframes scroll {
-    from {
-        background-position: 0 20px;
-    }
-
-    to {
-        background-position: 100% 0;
-    }
+.github-icon {
+  width: 24px;
+  height: 24px;
 }
 
-/* Make sure container doesnt get too stretched */
-.container {
-    max-width: 1000px;
-    margin: auto;
+#mascot {
+  img {
+    width: 160px;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  animation: floating 10s ease-in-out infinite;
 }
 
-.top-row {
-    display: flex;
-}
-
-.title {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-
-    text-align: center;
-    justify-content: center;
-}
-
-#main-title {
-    font-size: xx-large;
-}
-
-#ear {
-    display: flex;
-    align-self: center;
-    margin: 20px;
-}
-
-/* For mobile phones or small screens */
-@media screen and (max-width: 600px) {
-    .top-row {
-        flex-direction: column;
-    }
-
-    #button-row {
-        flex-direction: column;
-    }
-
-    #button-row .checkbox {
-        align-self: flex-end;
-    }
-
-    #recent-confessions-title, #no-confessions-recently, #confessionsAmount {
-        text-align: center;
-    }
-}
-
-#word-counter {
-    margin-top: 5px;
-    text-align: right;
-    margin-bottom: 20px;
-}
-
-#confessional textarea {
-    display: flex;
-    width: 100%;
-    height: 100px;
-    font-size: 30px;
-    box-sizing: border-box;
-}
-
-#button-row {
-    display: flex;
-    height: 50px;
-
-    button {
-        flex: 0 0 90%;
-        font-size: 30px;
-    }
-}
-
-.checkbox {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 10%;
-
-    label {
-        text-align: center;
-        align-self: center;
-    }
-
-    input {
-        align-self: center;
-        height: 100%;
-        width: 100%;
-    }
-}
-
-/* Prettyyyy :333 */
-#confessionsAmount {
-    font-weight: bold;
-    margin-bottom: 10px;
+@keyframes floating {
+  0%   { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+  15%  { transform: translate(2px, -4px) rotate(0.4deg) scale(1.01); }
+  30%  { transform: translate(-3px, -6px) rotate(-0.3deg) scale(0.99); }
+  45%  { transform: translate(-5px, -2px) rotate(0.5deg) scale(1.02); }
+  60%  { transform: translate(-2px, 3px) rotate(-0.4deg) scale(1); }
+  75%  { transform: translate(3px, 5px) rotate(0.3deg) scale(0.98); }
+  90%  { transform: translate(4px, 1px) rotate(-0.5deg) scale(1.01); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
 }
 
 #play-music {
-    font-size: x-large;
-    font-weight: bold;
-    border: none;
-    background-color: transparent;
-    margin-top: 10px;
+  background-color: transparent !important;
+  border: none !important;
 
-    .icon {
-        width: 40px;
-        height: 40px;
-    }
+  svg {
+    color: var(--primary);
+  }
+  &.playing > svg {
+    animation: musicRainbow 5s infinite;
+  }
 }
 
-#player {
-    display: none;
-}
-
-spinner {
-    animation: spinner 5s infinite;
-}
-
-@keyframes spinner {
+@keyframes musicRainbow {
     0% {
-        transform: rotateY(0deg);
+      color: red;
     }
-
-    100% {
-        transform: rotateY(360deg);
-    }
-}
-
-rainbowText {
-    animation: confessionRainbow 5s infinite;
-}
-
-@keyframes confessionRainbow {
-    0% {
-        color: red;
-    }
-
     33% {
-        color: orange;
+      color: orange;
     }
-
     66% {
-        color: yellow;
+      color: yellow;
     }
-
     90% {
-        color: green;
+      color: green;
     }
-
     100% {
-        color: red;
-    }
-}
-
-.fadeOut {
-    animation: fadeOutAnim 1s 1 forwards;
-}
-
-/* Animation that makes the button slide out of screen */
-@keyframes fadeOutAnim {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-        transform: translateX(-300px);
-        display: none;
+      color: red;
     }
 }
 
 .clickMe {
-    animation: clickMe 1s infinite;
+  animation: clickMe 1s infinite;
 }
 
 /* Annoying animation shaking the button */
 @keyframes clickMe {
     0% {
-        color: white;
-        transform: rotate(0deg);
+      transform: rotate(0deg) scale(1);
     }
 
     25% {
-        transform: rotate(5deg);
+      transform: rotate(5deg);
     }
 
     50% {
-        /* color: blue; */
-        transform: rotate(0deg);
+      transform: rotate(0deg) scale(1.1);
     }
 
     75% {
-        transform: rotate(-5deg);
+      transform: rotate(-5deg);
     }
 
     100% {
-        transform: rotate(0deg);
-        color: white;
+      transform: rotate(0deg) scale(1);
     }
 }
 
-.shake {
-    animation: shake 1s forwards;
+.confession-form {
+  margin-bottom: var(--space-12);
 }
 
-/* Animation played when you do something wrong */
-@keyframes shake {
-    0% {
-        transform: translateX(0);
+.form-group {
+  margin-bottom: var(--space-6);
+}
+
+.confession-textarea {
+  min-height: 120px;
+  resize: vertical;
+  caret-color: var(--primary);
+  line-height: 1.5;
+  font-size: var(--text-base);
+
+  &::selection {
+    background-color: var(--primary);
+    color: var(--base);
+  }
+
+  &::-moz-selection {
+    background-color: var(--primary);
+    color: var(--base);
+  }
+}
+
+.form-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.submit-btn {
+  font-size: var(--text-lg);
+  padding: var(--space-4) var(--space-6);
+}
+
+.background-label {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.background-selector {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.background-input {
+  display: none;
+
+  &:checked + .background-option {
+    border-color: var(--primary);
+    border-width: 3px;
+  }
+}
+
+.background-option {
+  width: 80px;
+  height: 60px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  &.default-bg {
+    background-color: var(--surface0);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+  }
+}
+
+.background-name {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  border-radius: var(--radius) var(--radius) 0 0;
+  width: 100%;
+  text-align: center;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  white-space: nowrap;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--surface0);
+  }
+}
+
+.checkbox-input {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  background-color: var(--surface0);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  &:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--base);
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+.checkbox-label {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.confessions-section {
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+
+  h2 {
+    color: var(--primary);
+    margin-bottom: var(--space-6);
+    text-align: center;
+  }
+}
+
+.confessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.confession-card {
+  background-color: var(--surface0);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &.has-background {
+    color: var(--text);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
     }
 
-    25% {
-        transform: translateX(5px);
+    & > * {
+      position: relative;
+      z-index: 2;
     }
 
-    50% {
-        transform: translateX(-5px);
+    & .confession-date {
+      color: var(--text);
     }
 
-    75% {
-        transform: translateX(5px);
+    & .confession-text {
+      color: var(--text);
     }
 
-    100% {
-        transform: translateX(0);
+    & .reaction-button {
+      background-color: rgba(55, 65, 69, 0.8);
+      border-color: rgba(88, 104, 109, 0.8);
+      color: var(--text);
+
+      &:hover {
+        background-color: rgba(74, 88, 92, 0.9);
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+
+      &.reacted {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--base);
+      }
     }
+  }
+}
+
+.confession-date {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-3);
+  text-decoration: underline;
+}
+
+.confession-text {
+  color: var(--foreground);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.no-confessions {
+  color: var(--muted);
+  font-style: italic;
+  padding: var(--space-8);
+  text-align: center;
+}
+
+.confession-reactions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.reaction-button {
+  background-color: var(--surface1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    background-color: var(--surface2);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  &.reacted {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--base);
+
+    &:hover {
+      background-color: var(--surface1);
+      border-color: var(--red);
+      color: var(--red);
+    }
+  }
+}
+
+.reaction-emoji {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.reaction-count {
+  font-weight: 500;
+  min-width: 1ch;
+  text-align: center;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    padding: var(--space-8) 0 var(--space-6);
+  }
+
+  .header-grid {
+    grid-template-columns: 1fr auto;
+    gap: var(--space-6);
+    text-align: left;
+  }
+
+  .site-title {
+    text-align: left;
+  }
+
+  .site-title h1 {
+    font-size: var(--text-4xl);
+  }
+
+  .site-subtitle {
+    font-size: var(--text-xl);
+  }
+
+  #mascot img {
+    width: 140px;
+  }
+
+  .form-actions {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .checkbox-wrapper {
+    justify-content: flex-start;
+    padding: var(--space-4);
+    font-size: var(--text-lg);
+  }
+
+  .checkbox-input {
+    width: 28px;
+    height: 28px;
+  }
+
+  .checkbox-input:checked::after {
+    font-size: 18px;
+  }
+
+  .checkbox-label {
+    font-size: var(--text-lg);
+  }
+
+  .container {
+    padding: 0 var(--space-6);
+  }
+
+  .confession-textarea {
+    font-size: var(--text-xl);
+    min-height: 140px;
+    padding: var(--space-4);
+    resize: none;
+  }
+
+  .submit-btn {
+    padding: var(--space-6) var(--space-8);
+    font-size: var(--text-2xl);
+    width: 100%;
+  }
+
+  .confession-card {
+    padding: var(--space-6);
+  }
+
+  .background-label {
+    text-align: center;
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  .background-selector {
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .background-option {
+    width: 120px;
+    height: 90px;
+  }
+
+  .background-name {
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .confessions-section h2 {
+    text-align: left;
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .confessions-list {
+    gap: var(--space-6);
+  }
+
+  .form-group {
+    margin-bottom: var(--space-8);
+  }
+
+  .reaction-button {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 36px;
+    gap: var(--space-1);
+  }
+
+  .reaction-emoji {
+    font-size: 1.2em;
+  }
+
+  .reaction-count {
+    font-size: var(--text-sm);
+  }
+
+  .site-subtitle::after {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    padding: var(--space-6) 0 var(--space-4);
+  }
+
+  .header-grid {
+    gap: var(--space-4);
+  }
+
+  .site-title h1 {
+    font-size: var(--text-3xl);
+  }
+
+  .site-subtitle {
+    font-size: var(--text-lg);
+  }
+
+  #mascot img {
+    width: 120px;
+  }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .confession-textarea {
+    font-size: var(--text-lg);
+    min-height: 120px;
+  }
+
+  .submit-btn {
+    font-size: var(--text-xl);
+    padding: var(--space-5) var(--space-6);
+  }
+
+  .confession-card {
+    padding: var(--space-4);
+  }
+
+  .confession-text {
+    font-size: var(--text-base);
+  }
+
+  .background-option {
+    width: 100px;
+    height: 75px;
+  }
+
+  .background-name {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .confessions-section h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .confessions-list {
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 var(--space-3);
+  }
+
+  .site-title h1 {
+    font-size: var(--text-2xl);
+  }
+
+  #mascot img {
+    width: 100px;
+  }
+
+  .confession-textarea {
+    min-height: 100px;
+  }
+
+  .submit-btn {
+    font-size: var(--text-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .background-option {
+    width: 85px;
+    height: 64px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .confession-textarea {
+    font-size: 16px;
+  }
+
+  .submit-btn {
+    min-height: 44px;
+  }
+
+  .checkbox-input {
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .github-link {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .background-option {
+    min-height: 44px;
+  }
 }

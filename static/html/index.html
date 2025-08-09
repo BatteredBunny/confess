@@ -5,60 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confess</title>
     <meta name="description" content="I am all ears">
+    <meta name="theme-color" content="#cae3b4">
+    <meta name="darkreader-lock">
+    <meta name="twitter:image" content="/static/images/flower.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="/static/images/flower.png">
     <link rel="icon" href="/static/images/im_all_ears.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/common.css">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <audio id="player" src="/static/audio/sumeru.m4a" autoplay hidden loop></audio>
+
     <div class="container">
-        <rainbowText id="confessionsAmount" class="hidden">meow</rainbowText>
-
-        <div class="top-row">
-            <div class="title">
-                <b id="main-title">Confess</b>
-                <div>I am all ears</div>
-            </div>
-
-            <spinner id="ear">
-                <img src="/static/images/im_all_ears.png" alt="I am all ears" width="200px">
-            </spinner>
-        </div>
-
-        <form id="confessional">
-            <textarea id="confessional-text" name="confession" placeholder="Confession" rows="10" cols="50" maxlength="1000"></textarea>
-
-            <div id="button-row">
-                <button id="submit-confession" type="submit">Submit confession</button>
-
-                <div class="checkbox">
-                    <input type="checkbox" name="confession-public" id="confession-public" checked>
-                    <label for="confession-public">Public</label>
+        <header class="site-header">
+            <div class="header-grid">
+                <div class="site-title">
+                    <h1>confess :3</h1>
+                    <p class="site-subtitle">I am all ears</p>
+                    <a href="https://github.com/BatteredBunny/confess" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View source on GitHub">
+                        <i class='icon' data-feather="github"></i>
+                    </a>
+                    <button id="play-music" class="clickMe"><i class='icon' data-feather="music"></i></button>
+                </div>
+                <div id="mascot">
+                    <img src="/static/images/im_all_ears.png" alt="I am all ears">
                 </div>
             </div>
-        </form>
+        </header>
 
-        <button id="play-music" class="clickMe"><i class='icon' data-feather="music"></i></button>
+        <main>
+            <section class="confession-form">
+                <form id="confessional">
+                    <div class="form-group">
+                        <label for="confessional-text" class="hidden">your confession</label>
+                        <textarea
+                            id="confessional-text"
+                            name="confession"
+                            placeholder="Tell me your deepest darkest secret."
+                            maxlength="1000"
+                            class="confession-textarea"
+                            required
+                        ></textarea>
+                    </div>
 
-        <h2 id="recent-confessions-title">Recent confessions</h2>
-        <p id="no-confessions-recently" class="hidden">No confessions in the last 24 hours</p>
-        <div id="recent-confessions"></div>
+                    <div class="form-group">
+                        <label class="background-label">background:</label>
+                        <div class="background-selector">
+                            <input type="radio" id="bg-default" name="background" value="" class="background-input" checked>
+                            <label for="bg-default" class="background-option default-bg">
+                                <span class="background-name">default</span>
+                            </label>
+
+                            <input type="radio" id="bg-fox" name="background" value="fox.png" class="background-input">
+                            <label for="bg-fox" class="background-option" style="background-image: url('/static/images/bg/fox.png')">
+                                <span class="background-name">fox</span>
+                            </label>
+
+                            <input type="radio" id="bg-kitty" name="background" value="kitty.png" class="background-input">
+                            <label for="bg-kitty" class="background-option" style="background-image: url('/static/images/bg/kitty.png')">
+                                <span class="background-name">kitty</span>
+                            </label>
+
+                            <input type="radio" id="bg-nixos" name="background" value="nixos.png" class="background-input">
+                            <label for="bg-nixos" class="background-option" style="background-image: url('/static/images/bg/nixos.png')">
+                                <span class="background-name">nixos</span>
+                            </label>
+
+                            <input type="radio" id="bg-lesbian" name="background" value="lesbian.png" class="background-input">
+                            <label for="bg-lesbian" class="background-option" style="background-image: url('/static/images/bg/lesbian.png')">
+                                <span class="background-name">lesbian</span>
+                            </label>
+
+                            <input type="radio" id="bg-butterfly" name="background" value="butterfly.png" class="background-input">
+                            <label for="bg-butterfly" class="background-option" style="background-image: url('/static/images/bg/butterfly.png')">
+                                <span class="background-name">butterfly</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="submit-confession" type="submit" class="submit-btn">
+                            submit confession!!!
+                        </button>
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" name="confession-public" id="confession-public" class="checkbox-input" checked>
+                            <span class="checkbox-label">public</span>
+                        </label>
+                    </div>
+                </form>
+            </section>
+
+            <section class="confessions-section">
+                <h2>recent confessions</h2>
+                <div id="no-confessions-recently" class="no-confessions hidden">
+                    no confessions in the last week :(
+                </div>
+                <div id="recent-confessions" class="confessions-list"></div>
+            </section>
+        </main>
     </div>
 
-    <div id="player">
-        <iframe
-          src="https://www.youtube.com/embed/vFy_K4CXq44"
-          allowtransparency
-          allow="autoplay"
-        ></iframe>
-    </div>
-
-    <footer>
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
-        <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-        <script src="/static/js/script.js"></script>
-    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>

@@ -10,17 +10,10 @@ buildGoModule {
     "-w"
   ];
 
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    install -Dm755 "$GOPATH/bin/confess" -T $out/bin/confess
-
+  preInstall = ''
+    mkdir $out
     cp -r static $out/static
-
-    runHook postInstall
   '';
-
   meta = {
     description = "A simple confessional website";
     homepage = "https://github.com/BatteredBunny/confess";
