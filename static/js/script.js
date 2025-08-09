@@ -153,14 +153,14 @@ function updateReactionButtons(confessionCard, reactions, confessionId) {
         const countSpan = button.querySelector('.reaction-count')
 
         if (count > 0) {
+            let rect = button.getBoundingClientRect()
+
             if (!countSpan) {
                 const newCountSpan = document.createElement('span')
                 newCountSpan.className = 'reaction-count'
                 newCountSpan.textContent = count
                 button.appendChild(newCountSpan)
-
-                let rect = button.getBoundingClientRect()
-
+                
                 confetti({
                     particleCount: 15,
                     spread: 30,
