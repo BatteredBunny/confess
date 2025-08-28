@@ -3,7 +3,7 @@ buildGoModule {
   src = ./.;
 
   name = "confess";
-  vendorHash = "sha256-bzgInd0vE0QxsosTJCIG7uUily45OPsdG50dr7IsZO0=";
+  vendorHash = "sha256-Bb65qeXEvQGJ2flzL3Owqo3IWLJW5nLz8drOb+zLaQ0=";
 
   ldflags = [
     "-s"
