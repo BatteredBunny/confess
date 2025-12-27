@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"slices"
 
@@ -130,6 +131,12 @@ func (app *Application) addReaction(c *gin.Context) {
 		return
 	}
 
+	timeSinceConfessionCreation := time.Since(confession.CreatedAt)
+	if timeSinceConfessionCreation.Hours() >= 168 { // 1 week = 168 hours
+		c.String(http.StatusBadRequest, "confession too old")
+		return
+	}
+
 	var existingReactions []reaction
 	app.db.Where("confession_id = ? AND ip_address = ? AND emoji = ?",
 		confessionId, c.ClientIP(), input.Emoji).Find(&existingReactions)
@@ -171,8 +178,10 @@ func (app *Application) addReaction(c *gin.Context) {
 	if err != nil {
 		log.Println("failed to marshal reaction json:", err)
 	} else {
-		if err := app.ws.Broadcast(bs); err != nil {
-			log.Println("failed to send reaction notification to websockets:", err)
+		if app.ws != nil {
+			if err := app.ws.Broadcast(bs); err != nil {
+				log.Println("failed to send reaction notification to websockets:", err)
+			}
 		}
 	}
 
