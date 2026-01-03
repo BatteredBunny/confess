@@ -36,7 +36,7 @@ testers.nixosTest {
     in
     ''
       start_all()
-      machine.wait_for_unit("confess.service")
+      machine.wait_for_unit("confess-web.service")
       machine.wait_for_open_port(${port})
       machine.succeed("curl -f http://localhost:${port}/")
     '';
