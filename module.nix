@@ -1,10 +1,23 @@
-{ pkgs
-, config ? pkgs.config
-, lib ? pkgs.lib
-, ...
+{
+  pkgs,
+  config ? pkgs.config,
+  lib ? pkgs.lib,
+  ...
 }:
 let
   cfg = config.services.confess-web;
+
+  flags = [
+    "--port=${toString cfg.port}"
+    "--static=${cfg.package}/static"
+    "--database=${cfg.dataDir}/confess.db"
+  ] ++ lib.optionals (!isNull cfg.ntfyUrl) [
+    "--ntfy=${cfg.ntfyUrl}"
+  ] ++ lib.optionals cfg.reverseProxy [
+    "--reverse-proxy"
+  ] ++ lib.optionals (!isNull cfg.trustedProxy) [
+    "--trusted-proxy=${cfg.trustedProxy}"
+  ];
 in
 {
   options.services.confess-web = {
@@ -35,6 +48,7 @@ in
 
     port = lib.mkOption {
       type = lib.types.int;
+      default = 3000;
       description = "port to run http api on";
     };
 
@@ -46,6 +60,7 @@ in
 
     reverseProxy = lib.mkOption {
       type = lib.types.bool;
+      default = false;
       description = "if running behind reverse proxy";
     };
 
@@ -102,7 +117,7 @@ in
         SystemCallArchitectures = "native";
         PrivateUsers = true;
         StateDirectory = cfg.dataDir;
-        ExecStart = "${lib.getExe cfg.package} --port=${toString cfg.port} --static=${cfg.package}/static --database=${cfg.dataDir}/confess.db ${lib.optionalString (!isNull cfg.ntfyUrl) "--ntfy=${cfg.ntfyUrl}"} ${lib.optionalString cfg.reverseProxy "--reverse-proxy"} ${lib.optionalString (!isNull cfg.trustedProxy) "--trusted-proxy=${cfg.trustedProxy}"}";
+        ExecStart = "${lib.getExe cfg.package} ${lib.concatStringsSep " " flags}";
         EnvironmentFile = cfg.environmentFile;
         Restart = "always";
       };

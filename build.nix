@@ -3,7 +3,7 @@ buildGoModule {
   src = ./.;
 
   name = "confess";
-  vendorHash = "sha256-8/T7DSgCXJ4HMM7A+2xg8CAPrZXEAVuYAUewS+tXJVQ=";
+  vendorHash = "sha256-vcC0maJhtRsEN4OLZPIEnJThNxaGwm7ueRAQY3hsoVU=";
 
   ldflags = [
     "-s"
@@ -14,8 +14,9 @@ buildGoModule {
     mkdir $out
     cp -r static $out/static
   '';
+
   meta = {
-    description = "A simple confessional website";
+    description = "Confessional website backend";
     homepage = "https://github.com/BatteredBunny/confess";
     mainProgram = "confess";
   };
