@@ -1,9 +1,9 @@
-{ buildGoModule }:
-buildGoModule {
+{ buildGoLatestModule }:
+buildGoLatestModule {
   src = ./.;
 
   name = "confess";
-  vendorHash = "sha256-YUWMByZWnOfbRnlr2+D2cOkBjFPuswP4DMg4ZmUrMfo=";
+  vendorHash = "sha256-PSThEJhrZ8DTxZu6+C+SBLZHUaOxKsZrGc05pgtTG5Y=";
 
   ldflags = [
     "-s"
